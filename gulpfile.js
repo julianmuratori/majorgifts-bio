@@ -9,7 +9,7 @@ const browserSync = require('browser-sync').create();
 const reload = browserSync.reload;
 
 gulp.task('styles', () => {
-  return gulp.src('./src/styles/**/*.scss')
+  return gulp.src('./dev/**/*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1'))
     .pipe(concat('style.css'))
@@ -17,8 +17,14 @@ gulp.task('styles', () => {
     .pipe(reload({stream: true}));
 });
 
+gulp.task('browser-sync', () => {
+  browserSync.init({
+    server: '.'  
+  })
+});
+
 gulp.task('scripts', () => {
-  gulp.src('./src/script.js')
+  gulp.src('./dev/script.js')
     .pipe(babel({
       presets: ['es2015']
     }))
@@ -27,8 +33,8 @@ gulp.task('scripts', () => {
 });
 
 gulp.task('watch', function() {
-  gulp.watch('./src/*.js', ['scripts']);
-  gulp.watch('./src/partials/*.scss', ['styles']);
+  gulp.watch('./dev/*.js', ['scripts']);
+  gulp.watch('./dev/*.scss', ['styles']);
   gulp.watch('*.html', reload);
 });
 
