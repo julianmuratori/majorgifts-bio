@@ -26,7 +26,7 @@ gulp.task('browser-sync', () => {
 gulp.task('scripts', () => {
   gulp.src('./dev/script.js')
     .pipe(babel({
-      presets: ['es2015']
+      presets: ['env']
     }))
     .pipe(gulp.dest('./public/'))
     .pipe(reload({stream: true}));
